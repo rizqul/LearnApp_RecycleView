@@ -16,15 +16,12 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements ListHeroAdapter.OnItemClickListener {
-    public static final String EXTRA_URL = "imageUrl";
-    public static final String EXTRA_NAME = "heroName";
-    public static final String EXTRA_SUMMARY = "heroSummary";
-
-    private RecyclerView recyclerViewHero;
-    private List<HeroModel> models = new ArrayList<>();
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    private Map<Integer, Fragment> fragmentMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,50 +29,40 @@ public class MainActivity extends AppCompatActivity implements ListHeroAdapter.O
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bn_menu);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, new HomeFragment());
 
-        recyclerViewHero = findViewById(R.id.rv_hero);
-        recyclerViewHero.setHasFixedSize(true);
-        models.addAll(HeroDatabase.getListData());
-        recyclerViewHero.setLayoutManager(new LinearLayoutManager(this));
-        ListHeroAdapter adapter = new ListHeroAdapter(models);
-        recyclerViewHero.setAdapter(adapter);
-        adapter.setOnItemClickListener(MainActivity.this);
+
+        fragmentMap = new HashMap<>();
+        fragmentMap.put(R.id.nm_home, new HomeFragment());
+        fragmentMap.put(R.id.nm_history, new HistoryFragment());
+        fragmentMap.put(R.id.nm_bookmark, new BookmarkFragment());
+        bottomNav.setOnNavigationItemSelectedListener(this);
+        bottomNav.setSelectedItemId(R.id.nm_home);
+        //        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, new HomeFragment());
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
-
-            switch (item.getItemId()) {
-                case R.id.nm_home:
-                    selectedFragment = new HomeFragment();
-                    break;
-
-                case R.id.nm_history:
-                    selectedFragment = new HistoryFragment();
-                    break;
-
-                case R.id.nm_bookmark:
-                    selectedFragment = new BookmarkFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.rv_hero, selectedFragment).commit();
-            return true;
-        }
-    };
-
     @Override
-    public void onItemClick(int position) {
-        Intent detailIntent = new Intent(MainActivity.this, HeroDetailActivity.class);
-        HeroModel clickedItem = models.get(position);
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = fragmentMap.get(item.getItemId());
+        assert fragment != null;
+        switch (item.getItemId()) {
+            case R.id.nm_home:
+                setActionBarTitle("Home");
+                break;
+            case R.id.nm_history:
+                setActionBarTitle("History");
+                break;
+            case R.id.nm_bookmark:
+                setActionBarTitle("Bookmark");
+                break;
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_main, fragment)
+                .commit();
+        return true;
+    }
 
-        detailIntent.putExtra(EXTRA_URL, clickedItem.getPhoto());
-        detailIntent.putExtra(EXTRA_NAME, clickedItem.getName());
-        detailIntent.putExtra(EXTRA_SUMMARY, clickedItem.getSummary());
-
-        startActivity(detailIntent);
+    private void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

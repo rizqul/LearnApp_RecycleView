@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.example.learnapp_recycleview.MainActivity.EXTRA_NAME;
-import static com.example.learnapp_recycleview.MainActivity.EXTRA_SUMMARY;
-import static com.example.learnapp_recycleview.MainActivity.EXTRA_URL;
-
 public class HeroDetailActivity extends AppCompatActivity {
-
+    public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_NAME = "heroName";
+    public static final String EXTRA_SUMMARY = "heroSummary";
     HeroModel heroSelected;
 
     ImageView ivHeroPhotoDetail;
