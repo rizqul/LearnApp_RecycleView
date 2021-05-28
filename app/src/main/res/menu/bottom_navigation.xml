@@ -13,6 +13,6 @@
 
     <item
         android:id="@+id/nm_bookmark"
-        android:title="Bookmark"
-        android:icon="@drawable/ic_baseline_bookmark"/>
+        android:title="Movie"
+        android:icon="@drawable/ic_baseline_movie_24"/>
 </menu>

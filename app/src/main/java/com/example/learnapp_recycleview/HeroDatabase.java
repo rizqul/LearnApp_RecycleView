@@ -41,7 +41,7 @@ public class HeroDatabase {
             R.drawable.tan_malaka
     };
 
-    static ArrayList<HeroModel> getListData() {
+    public static ArrayList<HeroModel> getListData() {
         ArrayList<HeroModel> list = new ArrayList<>();
         for (int position = 0; position < heroNames.length; position++) {
             HeroModel hero = new HeroModel();

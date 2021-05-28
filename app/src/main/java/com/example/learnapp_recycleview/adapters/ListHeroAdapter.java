@@ -1,4 +1,4 @@
-package com.example.learnapp_recycleview;
+package com.example.learnapp_recycleview.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.learnapp_recycleview.HeroModel;
+import com.example.learnapp_recycleview.R;
 
 import java.util.List;
 

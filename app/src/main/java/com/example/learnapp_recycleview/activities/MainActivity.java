@@ -1,23 +1,19 @@
-package com.example.learnapp_recycleview;
+package com.example.learnapp_recycleview.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
+import com.example.learnapp_recycleview.fragments.BookmarkFragment;
+import com.example.learnapp_recycleview.fragments.HistoryFragment;
+import com.example.learnapp_recycleview.fragments.HomeFragment;
+import com.example.learnapp_recycleview.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
